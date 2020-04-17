@@ -1,5 +1,6 @@
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -16,7 +17,7 @@ public class Game {
     private Pac pac;
 
     //Initializes the terminal and screen
-    public Game() throws IOException {
+    public Game(){
         try{
             terminal = new DefaultTerminalFactory().createTerminal();
             screen = new TerminalScreen(terminal);
@@ -32,12 +33,37 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(pac.getPosition().getY(), pac.getPosition().getY(), new TextCharacter('O'));
+        pac.draw(screen);
         screen.refresh();
     }
 
     public void run() throws IOException {
-        draw();
+        while(true){
+            draw();
+            key = screen.readInput();
+            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){screen.close();}
+            if (key.getKeyType() == KeyType.EOF){break;}
+            processKey(key);
+        }
+
     }
 
+    private void processKey(KeyStroke key){
+        switch (key.getKeyType()){
+            case ArrowUp:
+                movePac(pac.moveUp());
+                break;
+            case ArrowDown:
+                movePac(pac.moveDown());
+                break;
+            case ArrowLeft:
+                movePac(pac.moveLeft());
+                break;
+            case ArrowRight:
+                movePac(pac.moveRight());
+                break;
+        }
+    }
+
+    private void movePac(Position position){pac.setPosition(position);}
 }
