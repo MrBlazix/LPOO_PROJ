@@ -7,10 +7,10 @@
 
 # <h2>By:</h2>
 
-# <table style="width:50%;">
-#   <tr>
+<table style="width:50%;">
+  <tr>
 #     <th><a href="https://github.com/MrBlazix"><b>Pedro Pacheco</b></a></th>
 #     <th><a href="https://github.com/lmarques03"><b>Luís Marques</b></a></th>
-#   </tr>
-# </table>
+  </tr>
+</table>
 
