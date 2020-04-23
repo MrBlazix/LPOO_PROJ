@@ -6,6 +6,8 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,6 +22,7 @@ public class Arena {
     private List<Wall> walls;
     private List<Dot> dots;
     private int score;
+    JLabel scoreLabel;
 
     public Arena(int width, int height, Pac pac){
         this.width = width;
@@ -28,6 +31,9 @@ public class Arena {
         this.walls = createWalls();
         this.dots = createDots();
         this.score = 0;
+        //scoreLabel = new JLabel("Score: " + score);
+        //scoreLabel.setForeground(Color.WHITE);
+        //scoreLabel.setBounds(40, 5, width, height);
     }
 
     public void processKey(KeyStroke key){
@@ -113,6 +119,7 @@ public class Arena {
             if(dot.getPosition().equals(position)){
                 retrieveDots(dots.indexOf(dot));
                 score += 1;
+                someoneScored();
                 break;
             }
         return true;
@@ -130,4 +137,10 @@ public class Arena {
     private void retrieveDots(int i){
         dots.remove(i);
     }
+
+    /*public void someoneScored()
+    {
+        scoreLabel.setBounds(10, 10, 50, 10);
+        scoreLabel.setText("Score: " + score);
+    }*/
 }

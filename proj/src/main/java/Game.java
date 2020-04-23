@@ -25,7 +25,7 @@ public class Game {
             terminal = (Terminal) new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(100,100)).createTerminal();
             screen = new TerminalScreen(terminal);
             pac = new Pac(10,10);
-            arena = new Arena(39,23,pac);
+            arena = new Arena(39,25,pac);
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
