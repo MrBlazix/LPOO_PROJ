@@ -11,18 +11,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Arena {
     private int width;
     private int height;
     private Pac pac;
     private List<Wall> walls;
+    private List<Dot> dots;
+    private int score;
 
     public Arena(int width, int height, Pac pac){
         this.width = width;
         this.height = height;
         this.pac = pac;
         this.walls = createWalls();
+        this.dots = createDots();
+        this.score = 0;
     }
 
     public void processKey(KeyStroke key){
@@ -84,6 +89,8 @@ public class Arena {
         pac.draw(graphics);
         for (Wall wall : walls)
             wall.draw(graphics);
+        for(Dot dot : dots)
+            dot.draw(graphics);
     }
 
     private void movePac(Position position){
@@ -102,6 +109,25 @@ public class Arena {
         for (Wall wall : walls)
             if (wall.getPosition().equals(position)) return false;
 
+        for(Dot dot : dots)
+            if(dot.getPosition().equals(position)){
+                retrieveDots(dots.indexOf(dot));
+                score += 1;
+                break;
+            }
         return true;
+    }
+
+    private List<Dot> createDots(){
+        Random random = new Random();
+        ArrayList<Dot> dots = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            dots.add(new Dot(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        }
+        return dots;
+    }
+
+    private void retrieveDots(int i){
+        dots.remove(i);
     }
 }

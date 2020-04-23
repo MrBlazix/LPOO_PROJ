@@ -16,7 +16,7 @@ public class Wall {
     public Position getPosition(){return position;}
 
     public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#0E3EE1"));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), 	"#");
     }
