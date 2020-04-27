@@ -31,9 +31,9 @@ public class Arena {
         this.walls = createWalls();
         this.dots = createDots();
         this.score = 0;
-        //scoreLabel = new JLabel("Score: " + score);
-        //scoreLabel.setForeground(Color.WHITE);
-        //scoreLabel.setBounds(40, 5, width, height);
+        scoreLabel = new JLabel("Score: " + score);
+        scoreLabel.setForeground(Color.WHITE);
+        scoreLabel.setLocation(5, 5);
     }
 
     public void processKey(KeyStroke key){
@@ -55,11 +55,6 @@ public class Arena {
 
     private List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
-
-        for (int c = 0; c < width; c++) {
-            walls.add(new Wall(c, 0));
-            walls.add(new Wall(c, 0));
-        }
 
         try (FileReader f = new FileReader("map.txt")) {
             StringBuffer sb = new StringBuffer();
@@ -118,7 +113,6 @@ public class Arena {
         for(Dot dot : dots)
             if(dot.getPosition().equals(position)){
                 retrieveDots(dots.indexOf(dot));
-                score += 1;
                 someoneScored();
                 break;
             }
@@ -138,9 +132,9 @@ public class Arena {
         dots.remove(i);
     }
 
-    /*public void someoneScored()
+    public void someoneScored()
     {
-        scoreLabel.setBounds(10, 10, 50, 10);
+        score++;
         scoreLabel.setText("Score: " + score);
-    }*/
+    }
 }
