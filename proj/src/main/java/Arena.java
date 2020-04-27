@@ -28,33 +28,35 @@ public class Arena {
         this.width = width;
         this.height = height;
         this.pac = pac;
-        this.walls = createWalls();
-        this.dots = createDots();
+        createWalls();
         this.score = 0;
         //scoreLabel = new JLabel("Score: " + score);
         //scoreLabel.setForeground(Color.WHITE);
         //scoreLabel.setBounds(40, 5, width, height);
     }
 
-    public void processKey(KeyStroke key){
+    public synchronized boolean processKey(KeyStroke key){
+        boolean res = false;
         switch (key.getKeyType()){
             case ArrowUp:
-                movePac(pac.moveUp());
+                res = movePac(pac.moveUp());
                 break;
             case ArrowDown:
-                movePac(pac.moveDown());
+                res = movePac(pac.moveDown());
                 break;
             case ArrowLeft:
-                movePac(pac.moveLeft());
+                res = movePac(pac.moveLeft());
                 break;
             case ArrowRight:
-                movePac(pac.moveRight());
+                res = movePac(pac.moveRight());
                 break;
         }
+        return res;
     }
 
-    private List<Wall> createWalls() {
+    private void createWalls() {
         List<Wall> walls = new ArrayList<>();
+        List<Dot> dots = new ArrayList<>();
 
         for (int c = 0; c < width; c++) {
             walls.add(new Wall(c, 0));
@@ -74,6 +76,14 @@ public class Arena {
                     walls.add(new Wall(column,row));
                     column++;
                 }
+                else if(c== '.'){
+                    dots.add(new Dot(column, row,"Normal"));
+                    column++;
+                }
+                else if(c== '*'){
+                    dots.add(new Dot(column, row,"Super"));
+                    column++;
+                }
                 else{
                     column++;
                 }
@@ -84,8 +94,10 @@ public class Arena {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.walls = walls;
+        this.dots = dots;
 
-        return walls;
+        return;
     }
 
     public void draw(TextGraphics graphics) throws IOException {
@@ -99,11 +111,12 @@ public class Arena {
             dot.draw(graphics);
     }
 
-    private void movePac(Position position){
+    private boolean movePac(Position position){
         if(checkMove(position)){
             pac.setPosition(position);
+            return true;
         }
-
+    return false;
     }
 
     private boolean checkMove(Position position) {
@@ -119,20 +132,20 @@ public class Arena {
             if(dot.getPosition().equals(position)){
                 retrieveDots(dots.indexOf(dot));
                 score += 1;
-                someoneScored();
+             //   someoneScored();
                 break;
             }
         return true;
     }
 
-    private List<Dot> createDots(){
+   /* private List<Dot> createDots(){
         Random random = new Random();
         ArrayList<Dot> dots = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             dots.add(new Dot(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
         }
         return dots;
-    }
+    }*/
 
     private void retrieveDots(int i){
         dots.remove(i);
