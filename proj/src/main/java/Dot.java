@@ -7,11 +7,13 @@ import java.io.IOException;
 
 public class Dot {
     private Position position = new Position();
+    private String type;
 
     //Constructor with pre defined coordinates
-    public Dot(int x, int y){
+    public Dot(int x, int y, String type){
         this.position.setX(x);
         this.position.setY(y);
+        this.type = type;
     }
 
     public Position getPosition(){return position;}
@@ -19,7 +21,13 @@ public class Dot {
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setForegroundColor(TextColor.Factory.fromString("#F8FF8B"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), 	"o");
+        if (this.type == "Normal"){
+            graphics.putString(new TerminalPosition(position.getX(), position.getY()), 	".");
+        }
+        else if (this.type == "Super"){
+            graphics.putString(new TerminalPosition(position.getX(), position.getY()), 	"*");
+        }
+
     }
 
 }
