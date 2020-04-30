@@ -5,6 +5,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
+import org.w3c.dom.Text;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,9 +32,6 @@ public class Arena {
         this.pac = pac;
         createWalls();
         this.score = 0;
-        //scoreLabel = new JLabel("Score: " + score);
-        //scoreLabel.setForeground(Color.WHITE);
-        //scoreLabel.setBounds(40, 5, width, height);
     }
 
     public synchronized boolean processKey(KeyStroke key){
@@ -101,6 +99,8 @@ public class Arena {
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#111111"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width , height ), ' ');
+        graphics.setForegroundColor(TextColor.ANSI.WHITE);
+        graphics.putString(1,1, "Score: " + score);
 
         pac.draw(graphics);
 
@@ -134,8 +134,7 @@ public class Arena {
         for(Dot dot : dots)
             if(dot.getPosition().equals(position)){
                 retrieveDots(dots.indexOf(dot));
-                score += 1;
-                //   someoneScored();
+                someoneScored();
                 break;
             }
         return true;
@@ -154,11 +153,10 @@ public class Arena {
         dots.remove(i);
     }
 
-    /*public void someoneScored()
+    public void someoneScored()
     {
-        scoreLabel.setBounds(10, 10, 50, 10);
-        scoreLabel.setText("Score: " + score);
-    }*/
+        score++;
+    }
 
 }
 
