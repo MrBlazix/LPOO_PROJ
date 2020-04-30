@@ -23,6 +23,7 @@ public class Arena {
     private Pac pac;
     private List<Wall> walls;
     private List<Dot> dots;
+    private List<Position> path;
     private int score;
     JLabel scoreLabel;
 
@@ -35,6 +36,9 @@ public class Arena {
     }
 
     public synchronized boolean processKey(KeyStroke key){
+        if(key==null){
+            return false;
+        }
         boolean res = false;
         switch (key.getKeyType()){
             case ArrowUp:
@@ -56,11 +60,7 @@ public class Arena {
     private void createWalls() {
         List<Wall> walls = new ArrayList<>();
         List<Dot> dots = new ArrayList<>();
-
-        /*for (int c = 0; c < width; c++) {
-            walls.add(new Wall(c, 0));
-            walls.add(new Wall(c, 0));
-        }*/
+        List<Position> path = new ArrayList<>();
 
         try (FileReader f = new FileReader("map.txt")) {
             StringBuffer sb = new StringBuffer();
@@ -77,10 +77,16 @@ public class Arena {
                 }
                 else if(c== '.'){
                     dots.add(new Dot(column, row,"Normal"));
+                    path.add(new Position(column, row));
                     column++;
                 }
                 else if(c== '*'){
                     dots.add(new Dot(column, row,"Super"));
+                    path.add(new Position(column, row));
+                    column++;
+                }
+                else if(c== ' '){
+                    path.add(new Position(column, row));
                     column++;
                 }
                 else{
@@ -94,6 +100,7 @@ public class Arena {
         }
         this.walls = walls;
         this.dots = dots;
+        this.path = path;
     }
 
     public void draw(TextGraphics graphics) throws IOException {
@@ -137,17 +144,25 @@ public class Arena {
                 someoneScored();
                 break;
             }
+        for (Position position1 : path)
+            if(position1.equals(position) && testPath(position)){
+
+                return true;
+            }
+
+
+        return false;
+    }
+
+    public boolean testPath(Position position){
+        Position tempPosition1 = new Position(position.getX(),position.getY()+1);
+        Position tempPosition2 = new Position(position.getX(),position.getY()-1);
+        if(this.walls.contains(new Wall(position.getX()+1,position.getY())) || this.walls.contains(new Wall(position.getX()-1,position.getY()))){
+            return false;
+        }
         return true;
     }
 
-    /* private List<Dot> createDots(){
-        Random random = new Random();
-        ArrayList<Dot> dots = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            dots.add(new Dot(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
-        }
-        return dots;
-    }*/
 
     private void retrieveDots(int i){
         dots.remove(i);

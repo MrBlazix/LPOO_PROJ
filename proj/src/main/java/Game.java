@@ -28,16 +28,16 @@ public class Game {
     static ScheduledFuture<?> t;
 
     //Initializes the terminal and screen
-    public Game(){
-        try{
-            terminal = (Terminal) new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(100,100)).createTerminal();
+    public Game() {
+        try {
+            terminal = (Terminal) new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(100, 100)).createTerminal();
             screen = new TerminalScreen(terminal);
-            pac = new Pac(9,10);
-            arena = new Arena(39,25,pac);
+            pac = new Pac(9, 10);
+            arena = new Arena(39, 25, pac);
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -51,33 +51,41 @@ public class Game {
 
     public void run() throws IOException {
 
-        TimerTask task = new TimerTask()
-        {
-            public void run()
-            {
-                boolean res = arena.processKey(key);
-                try {  draw(); } catch (IOException e) { e.printStackTrace(); }
-                if (!res){
-                    t.cancel(false);
-                }
-            }
-        };
+        KeyStroke temporaryKey = null;
 
-        while(true){
+        while (true) {
             draw();
 
-            key = screen.readInput();
+            key = screen.pollInput();
 
-            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){screen.close();}
-            if (key.getKeyType() == KeyType.EOF){break;}
+            if (key != null) {
+
+                boolean res1 = arena.processKey(key);
+                if(!res1){
+                    arena.processKey(temporaryKey);
+                }
+                else{
+                    temporaryKey = key;
+
+                    if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
+                     screen.close();
+                    }
+
+                    if (key.getKeyType() == KeyType.EOF) {
+                        break;
+                    }
+                }
+
+            }
+            else {
+                boolean res2 = arena.processKey(temporaryKey);
+            }
 
 
-            t = scheduler.scheduleAtFixedRate(task,0,1, TimeUnit.SECONDS);
-
+            try { Thread.sleep(150); } catch (InterruptedException e) { e.printStackTrace(); }
 
         }
 
+
     }
-
-
 }
