@@ -1,4 +1,4 @@
-# LPOO_<T03><G34> <Pac-Man>
+# LPOO_T03G34 - Pac-Man
 
 Neste antigo mas divertido jogo poderás desfrutar da nostalgia do Pac-Man.
 Foge dos fantasmas e tenta alcançar o máximo de pontos enquanto o fazes!
