@@ -1,11 +1,9 @@
 # lpoo-2020-g34
 # Projeto desenvolvido para a Unidade Curricular de LPOO 19/20
 
-# MUST HAVE: Board, Pac-Man, Ghosts, Score, Lifes, Walls, Invencible Status
-# SHOULD HAVE: Cherries, Ghost IA, Menu, Instructions
-# COULD HAVE: Automatic Map Generator, Leaderboard
+Pequeno jogo do Pac-Man desenvolvido no âmbito da Unidade Curricular de Laboratório de Programação Orientada aos Objetos.
 
-# <h2>By:</h2>
+<h2>By:</h2>
 
 <table style="width:50%;">
   <tr>
