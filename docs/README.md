@@ -15,7 +15,7 @@ Projeto desenvolvido por Luís Marques e Pedro Pacheco @FEUP for LPOO 19/20.
 
 ## Design
 No relevant problems were found.
-![Designed Classes](/images/lpoo_uml.png)
+![Designed Classes](/docs/images/lpoo_uml.png)
 
 ## Known code smells and refactoring sugestions
 ###Classe excessivamente grande
