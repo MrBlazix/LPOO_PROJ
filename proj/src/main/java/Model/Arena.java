@@ -1,29 +1,28 @@
-import com.googlecode.lanterna.SGR;
+package Model;
+
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
-import org.w3c.dom.Text;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Arena {
 
     private int width;
     private int height;
     private Pac pac;
+    private List<Ghost> ghosts;
     private List<Wall> walls;
     private List<Dot> dots;
     private List<Position> path;
+    private List<Position> ghostArea;
     private int score;
     JLabel scoreLabel;
 
@@ -35,32 +34,17 @@ public class Arena {
         this.score = 0;
     }
 
-    public synchronized boolean processKey(KeyStroke key){
-        if(key==null){
-            return false;
-        }
-        boolean res = false;
-        switch (key.getKeyType()){
-            case ArrowUp:
-                res = movePac(pac.moveUp());
-                break;
-            case ArrowDown:
-                res = movePac(pac.moveDown());
-                break;
-            case ArrowLeft:
-                res = movePac(pac.moveLeft());
-                break;
-            case ArrowRight:
-                res = movePac(pac.moveRight());
-                break;
-        }
-        return res;
-    }
 
     private void createWalls() {
+
+        List<Ghost> ghosts = new ArrayList<>();
         List<Wall> walls = new ArrayList<>();
         List<Dot> dots = new ArrayList<>();
         List<Position> path = new ArrayList<>();
+        List<Position> ghostArea = new ArrayList<>();
+
+        ghosts.add(new Ghost(9,15,"#FF0000"));
+        ghosts.add(new Ghost(20,13,"#89cff0"));
 
         try (FileReader f = new FileReader("map.txt")) {
             StringBuffer sb = new StringBuffer();
@@ -89,6 +73,11 @@ public class Arena {
                     path.add(new Position(column, row));
                     column++;
                 }
+                else if(c== '-'){
+                    ghostArea.add(new Position(column, row));
+                    column++;
+                }
+
                 else{
                     column++;
                 }
@@ -101,31 +90,33 @@ public class Arena {
         this.walls = walls;
         this.dots = dots;
         this.path = path;
+        this.ghosts = ghosts;
+        this.ghostArea = ghostArea;
     }
 
-    public void draw(TextGraphics graphics) throws IOException {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#111111"));
-        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width , height ), ' ');
-        graphics.setForegroundColor(TextColor.ANSI.WHITE);
-        graphics.putString(1,1, "Score: " + score);
 
-        pac.draw(graphics);
 
-        for (Wall wall : walls)
-            wall.draw(graphics);
-        for(Dot dot : dots)
-            dot.draw(graphics);
-    }
-
-    private boolean movePac(Position position){
-        if(checkMove(position)){
+    public boolean movePac(Position position){
+        if(checkMove(position,1)){
             pac.setPosition(position);
             return true;
         }
         return false;
     }
 
-    private boolean checkMove(Position position) {
+    public boolean moveGhost(Ghost ghost, Position position){
+        if(checkMove(position,0)){
+            ghost.setPosition(position);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Ghost> getGhosts() {
+        return ghosts;
+    }
+
+    private boolean checkMove(Position position, int type) {
 
         if (position.getX() < 0) return false;
 
@@ -139,13 +130,19 @@ public class Arena {
             if (wall.getPosition().equals(position)) return false;
 
         for(Dot dot : dots)
-            if(dot.getPosition().equals(position)){
+            if(dot.getPosition().equals(position) && type ==1){
                 retrieveDots(dots.indexOf(dot));
                 someoneScored();
                 break;
             }
         for (Position position1 : path)
             if(position1.equals(position) && testPath(position)){
+
+                return true;
+            }
+
+        for (Position position1 : ghostArea)
+            if(position1.equals(position) && testPath(position) && (type ==0)){
 
                 return true;
             }
@@ -173,5 +170,28 @@ public class Arena {
         score++;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public Pac getPac() {
+        return pac;
+    }
+
+    public List<Wall> getWalls() {
+        return walls;
+    }
+
+    public List<Dot> getDots() {
+        return dots;
+    }
 }
 

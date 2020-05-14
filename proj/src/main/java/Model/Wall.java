@@ -1,6 +1,7 @@
+package Model;
+
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -16,11 +17,6 @@ public class Wall {
 
     public Position getPosition(){return position;}
 
-    public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#0E3EE1"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), 	"#");
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,4 +30,6 @@ public class Wall {
     public int hashCode() {
         return Objects.hash(position);
     }
+
+
 }

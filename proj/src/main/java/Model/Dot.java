@@ -1,3 +1,5 @@
+package Model;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
@@ -18,16 +20,7 @@ public class Dot {
 
     public Position getPosition(){return position;}
 
-    public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#F8FF8B"));
-        graphics.enableModifiers(SGR.BOLD);
-        if (this.type == "Normal"){
-            graphics.putString(new TerminalPosition(position.getX(), position.getY()), 	".");
-        }
-        else if (this.type == "Super"){
-            graphics.putString(new TerminalPosition(position.getX(), position.getY()), 	"*");
-        }
-
+    public String getType() {
+        return type;
     }
-
 }

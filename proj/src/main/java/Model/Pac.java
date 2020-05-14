@@ -1,3 +1,5 @@
+package Model;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextCharacter;
@@ -11,7 +13,7 @@ import java.io.IOException;
 
 public class Pac {
 
-    //Creates a new Position for Pac
+    //Creates a new Model.Position for Model.Pac
     private Position position = new Position();
 
 
@@ -22,7 +24,7 @@ public class Pac {
     }
 
 
-    //Returns Position
+    //Returns Model.Position
     public Position getPosition(){return position;}
 
     public void setPosition(Position position){
@@ -42,12 +44,5 @@ public class Pac {
     public Position moveRight(){return new Position(position.getX() + 1, position.getY());}
 
 
-
-    public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "O");
-
-    }
 }
 
