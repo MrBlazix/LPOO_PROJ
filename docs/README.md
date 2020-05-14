@@ -1,4 +1,4 @@
-# LPOO_<T03><G34> - <Pac-Man>
+# LPOO_<T03><G34> <Pac-Man>
 
 Neste antigo mas divertido jogo poderás desfrutar da nostalgia do Pac-Man.
 Foge dos fantasmas e tenta alcançar o máximo de pontos enquanto o fazes!
@@ -18,11 +18,11 @@ No relevant problems were found.
 ![Designed Classes](/docs/images/lpoo_uml.png)
 
 ## Known code smells and refactoring sugestions
-###Classe excessivamente grande
+### Classe excessivamente grande
 Large Class - Criar uma nova classe para substituir partes da classe original, aumentando a flexibilidade.
-###Uso excessivo de chamadas a métodos de outras classes
+### Uso excessivo de chamadas a métodos de outras classes
 Fazer apenas uma chamada e guardar resultados em variáveis.
-###Método excessivamente grande
+### Método excessivamente grande
 Long Method - Usar Extract Method
 
 ## Testing
