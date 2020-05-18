@@ -4,6 +4,7 @@ import Model.Arena;
 import Model.Ghost;
 import Model.Pac;
 import View.ArenaDrawer;
+import View.MainMenu;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -27,12 +28,26 @@ public class Game {
     private KeyStroke key;
     private Arena arena;
     private ArenaDrawer drawer;
+    private MainMenu menu;
+    private int option;
 
 
     //Initializes the terminal and screen
-    public Game(Arena arena, ArenaDrawer drawer) {
+    public Game(Arena arena, ArenaDrawer drawer, MainMenu menu) {
         this.arena = arena;
         this.drawer = drawer;
+        this.menu = menu;
+    }
+
+    public void mainLoopMenu() throws IOException {
+
+        menu.setInfoMain();
+        option = menu.checkInputMenu();
+
+        if(option == 1){run();}
+        if(option == 2){menu.setInfoInstruc();}
+        if(option == 3){drawer.closeScreen();}
+
     }
 
 
