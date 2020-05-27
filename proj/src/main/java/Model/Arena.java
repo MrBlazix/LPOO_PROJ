@@ -141,11 +141,12 @@ public class Arena {
                 return true;
             }
 
-        for (Position position1 : ghostArea)
+        for (Position position1 : ghostArea){
             if(position1.equals(position) && testPath(position) && (type ==0)){
 
                 return true;
             }
+        }
 
 
         return false;
