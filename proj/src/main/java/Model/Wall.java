@@ -30,6 +30,4 @@ public class Wall {
     public int hashCode() {
         return Objects.hash(position);
     }
-
-
 }

@@ -6,6 +6,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Dot {
     private Position position = new Position();
@@ -22,5 +23,19 @@ public class Dot {
 
     public String getType() {
         return type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Dot)) return false;
+        Dot dot = (Dot) o;
+        return position.equals(dot.position) &&
+                type.equals(dot.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, type);
     }
 }

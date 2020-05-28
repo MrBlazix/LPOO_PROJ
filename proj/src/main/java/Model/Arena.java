@@ -17,6 +17,8 @@ public class Arena {
 
     private int width;
     private int height;
+    public boolean superTime;
+    private int lives;
     private Pac pac;
     private List<Ghost> ghosts;
     private List<Wall> walls;
@@ -24,6 +26,7 @@ public class Arena {
     private List<Position> path;
     private List<Position> ghostArea;
     private int score;
+    private int level;
     JLabel scoreLabel;
 
     public Arena(int width, int height, Pac pac){
@@ -32,10 +35,33 @@ public class Arena {
         this.pac = pac;
         createWalls();
         this.score = 0;
+        this.lives = 3;
+        this.level = 1;
     }
 
+    public int getLives() {
+        return lives;
+    }
 
-    private void createWalls() {
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public void increaseLevel(){
+        this.level++;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void resetGhosts(){
+        for(Ghost ghost : ghosts){
+            ghost.setInitialPosition();
+        }
+    }
+
+    public void createWalls() {
 
         List<Ghost> ghosts = new ArrayList<>();
         List<Wall> walls = new ArrayList<>();
@@ -43,8 +69,8 @@ public class Arena {
         List<Position> path = new ArrayList<>();
         List<Position> ghostArea = new ArrayList<>();
 
-        ghosts.add(new Ghost(9,15,"#FF0000"));
-        ghosts.add(new Ghost(20,13,"#89cff0"));
+        ghosts.add(new Ghost(19,11,"#FF0000"));
+        ghosts.add(new Ghost(21,11,"#89cff0"));
 
         try (FileReader f = new FileReader("map.txt")) {
             StringBuffer sb = new StringBuffer();
@@ -94,7 +120,16 @@ public class Arena {
         this.ghostArea = ghostArea;
     }
 
+    public boolean isSuperPoint(Position position){
 
+        Dot temp_dot = new Dot(position.getX(),position.getY(),"Super");
+
+        if(this.dots.contains(temp_dot)){
+            return true;
+        }
+        else
+            return false;
+    }
 
     public boolean movePac(Position position){
         if(checkMove(position,1)){
@@ -116,7 +151,16 @@ public class Arena {
         return ghosts;
     }
 
-    private boolean checkMove(Position position, int type) {
+    public boolean detectDeath(){
+        for(Ghost ghost : ghosts){
+            if(ghost.getPosition().equals(this.getPac().getPosition())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkMove(Position position, int type) {
 
         if (position.getX() < 0) return false;
 
@@ -131,10 +175,19 @@ public class Arena {
 
         for(Dot dot : dots)
             if(dot.getPosition().equals(position) && type ==1){
+                if(isSuperPoint(position)){
+                    this.superTime = true;
+                }
+
                 retrieveDots(dots.indexOf(dot));
+
                 someoneScored();
                 break;
             }
+
+        if(checkIfGhost(position)){
+            return false;
+        }
         for (Position position1 : path)
             if(position1.equals(position) && testPath(position)){
 
@@ -153,12 +206,21 @@ public class Arena {
     }
 
     public boolean testPath(Position position){
-        Position tempPosition1 = new Position(position.getX(),position.getY()+1);
-        Position tempPosition2 = new Position(position.getX(),position.getY()-1);
+
         if(this.walls.contains(new Wall(position.getX()+1,position.getY())) || this.walls.contains(new Wall(position.getX()-1,position.getY()))){
             return false;
         }
         return true;
+    }
+
+    public boolean checkIfGhost(Position position){
+
+        for(Ghost ghost : ghosts){
+            if(ghost.getPosition().equals(position)){
+                return true;
+            }
+        }
+        return false;
     }
 
 

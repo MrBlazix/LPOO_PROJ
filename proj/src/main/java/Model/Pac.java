@@ -34,7 +34,6 @@ public class Pac {
 
     public Position moveUp(){
         return new Position(position.getX(), position.getY() - 1);
-
     }
 
     public Position moveDown(){return new Position(position.getX(), position.getY() + 1);}
