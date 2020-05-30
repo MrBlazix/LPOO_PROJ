@@ -119,7 +119,7 @@ public class ArenaDrawer {
 
         for (Ghost ghost : arena.getGhosts()){
             if(!arena.superTime){
-                graphics.setForegroundColor(TextColor.Factory.fromString(ghost.getColour()));
+                graphics.setForegroundColor(TextColor.Factory.fromString(convertToHex(ghost.getColour())));
             }
             else{
                 graphics.setForegroundColor(TextColor.Factory.fromString("#0E3EE1"));
@@ -168,6 +168,32 @@ public class ArenaDrawer {
             }
         }
 
+    }
+
+    public String convertToHex(String color){
+        String return_color;
+        switch (color){
+            case "Pink":
+                return_color = "#FFC0CB";
+                break;
+
+            case "Blue":
+                return_color = "#0000FF";
+                break;
+
+            case "Yellow":
+                return_color = "#FFFF00";
+                break;
+
+            case "Red":
+                return_color = "#FF0000";
+                break;
+
+            default: return_color = "#000000";
+            break;
+        }
+
+        return return_color;
     }
 
 }

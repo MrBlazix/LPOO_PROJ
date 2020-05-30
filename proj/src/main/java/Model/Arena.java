@@ -69,8 +69,10 @@ public class Arena {
         List<Position> path = new ArrayList<>();
         List<Position> ghostArea = new ArrayList<>();
 
-        ghosts.add(new Ghost(19,11,"#FF0000"));
-        ghosts.add(new Ghost(21,11,"#89cff0"));
+        ghosts.add(new Ghost(19,11,"Red"));
+        ghosts.add(new Ghost(21,11,"Blue"));
+     //   ghosts.add(new Ghost(20,11,"#FFFF99"));
+     //   ghosts.add(new Ghost(20,10,"#FFC0CB"));
 
         try (FileReader f = new FileReader("map.txt")) {
             StringBuffer sb = new StringBuffer();

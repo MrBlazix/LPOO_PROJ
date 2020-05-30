@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group 'org.example'
+group 'com.proj'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
