@@ -51,8 +51,36 @@ O Score aumenta:
 * Está no plano implementar os menus (principal, instruções e pausa), inteligência artificial nos fantasmas, estado de invencibilidade no Pac, vidas e testes unitários de forma a cobrir o bom funcionamento do jogo.
 
 ## Design
-No relevant problems were found.
+### Problem in Context
+No início houve alguns problemas relativos com o trabalho simultâneo de ambos os membros do grupo.
+Mesmo trabalhando em partes diferentes do código, havia diversas alterações que alteravam vários componentes.
+
+### The Pattern
+Decidimos então implementar o MVC Design Pattern. Permitindo-nos dividir o programa em 3 camadas, permitindo que a alteração de uma camada, não influencia-se o resto do código.
+
+### Implementation
 ![Designed Classes](/docs/images/lpoo_uml.png)
+
+### Consequences
+Esta implemantação permitiu-nos registar os seguintes benefícios:
+* Permite-nos desenvolver partes diferentes do código em paralelo.
+* Facilidade nas alterações da interface gráfica.
+* Maior facilidade em testar cada camada e cada componente dessa camada.
+
+
+### Problem in Context
+No caso do Pac, temos um exemplo de uma caso em que só pretendemos ter exatamente uma instancia de uma dada classe.
+
+### The Pattern
+Para evitar usar o Singleton Pattern, acabámos por inicializar uma instancia apenas do pac, e passar esse obejto como um parâmetro.
+
+### Implementation
+![Designed Classes](/docs/images/lpoo_uml_2.png)
+
+### Consequences
+Esta implementação permitiu-nos registar os seguintes benefícios:
+* Maior facilidade em realizar alterações no código.
+* Maior facilidade em testar.
 
 ## Known code smells and refactoring sugestions
 ### Classe excessivamente grande
