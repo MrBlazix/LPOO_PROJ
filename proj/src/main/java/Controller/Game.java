@@ -70,7 +70,7 @@ public class Game {
                 }
             }
             else {
-                boolean res2 = processKey(temporaryKey);
+                processKey(temporaryKey);
             }
             try { Thread.sleep(250); } catch (InterruptedException e) { e.printStackTrace(); }
             processGhost();
@@ -99,7 +99,7 @@ public class Game {
 
     // Calculates the ghosts next move
     public String calculateMove(Ghost ghost){
-        ArrayList<String> positions = new ArrayList<>();
+
         HashMap<Integer,String> directions = new HashMap<>();
         int ghost_position_x = ghost.getPosition().getX();
         int ghost_position_y = ghost.getPosition().getY();
@@ -129,7 +129,7 @@ public class Game {
             directions.put(position_right_man,"Right");
         }
 
-        SortedSet<Integer> keys = new TreeSet<Integer>(directions.keySet());
+        SortedSet<Integer> keys = new TreeSet<>(directions.keySet());
 
     if(!arena.superTime){
         return directions.get(keys.first());
@@ -142,10 +142,10 @@ public class Game {
 
     // Processes ghosts movement
     public synchronized void processGhost() throws IOException {
-        Random rand = new Random();
-        //arena.moveGhost(ghost,ghost.moveUp());
 
-        //int rand_int1 = rand.nextInt(4);
+
+
+
 
         for (Ghost ghost : arena.getGhosts()){
 
@@ -261,8 +261,6 @@ public class Game {
             entry.getValue().entrySet().forEach(entry2->{
                     int score = entry2.getKey();
                     LocalDate date = entry2.getValue();
-                    System.out.println(username + " " + score + " " + date);
-                    System.out.println(highScore.getHighScores().size());
             });
 
         });

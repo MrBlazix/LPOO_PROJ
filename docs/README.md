@@ -83,15 +83,30 @@ Esta implementação permitiu-nos registar os seguintes benefícios:
 * Maior facilidade em testar.
 
 ## Known code smells and refactoring sugestions
-### Classe excessivamente grande
-Large Class - Criar uma nova classe para substituir partes da classe original, aumentando a flexibilidade.
-### Uso excessivo de chamadas a métodos de outras classes
-Fazer apenas uma chamada e guardar resultados em variáveis.
-### Método excessivamente grande
-Long Method - Usar Extract Method
+### Não Corrigidos
+**Arena.java**
+* Large Class - Criar uma nova classe para substituir partes da classe original, aumentando a flexibilidade.
+
+### Corrigidos
+**Game.java**  
+* Uso excessivo de chamadas a métodos de outras classes - Feita apenas uma chamada e guardados os resultados em variáveis.
+* Dead Code - L.73 - Removida váriavel não usada.
+* Dead Code - L.102 - Removida linha que inicializava objeto não usado.
+* Dead Code - L.132 - Parâmetro desnecessário removido.
+* Dead Code - L.145 - Removida váriavel não usada.
+
+**Arena.java**  
+* Uso excessivo de chamadas a métodos de outras classes - Feita apenas uma chamada e guardados os resultados em variáveis.
+* Dead Code - L.3 - Eliminados *imports* não usados.
+* Dead Code - L.78 - Removida linha que inicializava objeto não usado.
+
+**Dot.java**
+* Dead Code - L.3 - Eliminados *imports* não usados.
+
 
 ## Testing
-No tests were implemented yet.
+Implementádos Unit Tests a nível individual das funções.
+Resultados:
 
 ## Self Evaluation
 Luís Marques:50 %

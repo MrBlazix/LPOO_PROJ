@@ -1,12 +1,6 @@
 package Model;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -78,11 +72,10 @@ public class Arena {
 
         ghosts.add(new Ghost(19,11,"Red"));
         ghosts.add(new Ghost(21,11,"Blue"));
-        //ghosts.add(new Ghost(20,11,"#FFFF99"));
-        //ghosts.add(new Ghost(20,10,"#FFC0CB"));
+
 
         try (FileReader f = new FileReader("map.txt")) {
-            StringBuffer sb = new StringBuffer();
+
             int row = 0;
             int column = 0;
             while (f.ready()) {
