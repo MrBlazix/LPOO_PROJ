@@ -186,9 +186,7 @@ public class Arena {
                 if(isSuperPoint(position)){
                     this.superTime = true;
                 }
-
                 retrieveDots(dots.indexOf(dot));
-
                 someoneScored();
                 break;
             }
@@ -198,18 +196,14 @@ public class Arena {
         }
         for (Position position1 : path)
             if(position1.equals(position) && testPath(position)){
-
                 return true;
             }
 
         for (Position position1 : ghostArea){
             if(position1.equals(position) && testPath(position) && (type ==0)){
-
                 return true;
             }
         }
-
-
         return false;
     }
 

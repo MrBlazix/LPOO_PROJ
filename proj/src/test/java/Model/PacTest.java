@@ -17,7 +17,6 @@ public class PacTest {
     @Test
     public void setPosition() {
         pac.setPosition(new Position(1,2));
-
         Assert.assertEquals(new Position(1,2), pac.getPosition());
     }
 

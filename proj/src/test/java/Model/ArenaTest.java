@@ -1,6 +1,7 @@
 package Model;
 
 
+import javafx.geometry.Pos;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,17 +69,22 @@ public class ArenaTest {
 
     @Test
     public void checkMove() {
+        Position temp = arena.getPac().getPosition();
+        arena.checkMove(temp, 1);
+        Position temp2 = arena.getPac().getPosition();
+        arena.checkMove(temp2, 0);
+        Assert.assertNotEquals(temp, temp2);
     }
 
     @Test
     public void testPath() {
+
     }
 
     @Test
-    public void checkIfGhost() {
-    }
-
-    @Test
-    public void someoneScored() {
+    public void checkIfGhost(){
+        boolean temp = arena.checkIfGhost(arena.getGhosts().get(0).getPosition());
+        boolean temp2 = arena.checkIfGhost(arena.getGhosts().get(1).getPosition());
+        Assert.assertEquals(temp, temp2);
     }
 }
