@@ -48,7 +48,7 @@ O Score aumenta:
 * O Pac ganha a abilidade de comer os ghosts.
 
 ## Planned Features
-* Está no plano implementar os menus (principal, instruções e pausa), inteligência artificial nos fantasmas, estado de invencibilidade no Pac, vidas e testes unitários de forma a cobrir o bom funcionamento do jogo.
+* Das features planeadas, a geração automática de mapas não foi concretizada, dado que provou ser um desafio maior do que o esperado.
 
 ## Design
 ### Problem in Context
