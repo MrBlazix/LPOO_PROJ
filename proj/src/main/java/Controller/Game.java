@@ -14,12 +14,10 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-
-import static javafx.application.Platform.exit;
 
 public class Game {
 
+    // Variable initializing
     private KeyStroke key;
     private Arena arena;
     private ArenaDrawer drawer;
@@ -28,12 +26,13 @@ public class Game {
     public static HighScore highScore;
 
 
-    //Initializes the terminal and screen
+    // Initializes the terminal and screen
     public Game(Arena arena, ArenaDrawer drawer) {
         this.arena = arena;
         this.drawer = drawer;
     }
 
+    // Runs the game
     public void run() throws IOException {
         highScore = new HighScore();
         retrieveDataFromFile();
@@ -47,8 +46,8 @@ public class Game {
         }
 
         while (!end) {
-            drawer.draw(arena);
 
+            drawer.draw(arena);
             key = drawer.getCommand();
 
             if (key != null) {
@@ -73,18 +72,13 @@ public class Game {
             else {
                 boolean res2 = processKey(temporaryKey);
             }
-
-
-
             try { Thread.sleep(250); } catch (InterruptedException e) { e.printStackTrace(); }
             processGhost();
             checkIfLevelOver();
-
         }
-
-
     }
 
+    // Checks if the level is over
     public void checkIfLevelOver(){
         if(arena.getDots().size() == 0){
             arena.getPac().setPosition(new Position(19, 3));
@@ -94,6 +88,7 @@ public class Game {
         }
     }
 
+    // Returns the distance between an object and Pac
     public int getDistance(Position position){
         int man = 0;
         man += Math.abs(position.getX() - arena.getPac().getPosition().getX());
@@ -102,6 +97,7 @@ public class Game {
         return man;
     }
 
+    // Calculates the ghosts next move
     public String calculateMove(Ghost ghost){
         ArrayList<String> positions = new ArrayList<>();
         HashMap<Integer,String> directions = new HashMap<>();
@@ -144,11 +140,12 @@ public class Game {
 
     }
 
+    // Processes ghosts movement
     public synchronized void processGhost() throws IOException {
         Random rand = new Random();
-       // arena.moveGhost(ghost,ghost.moveUp());
+        //arena.moveGhost(ghost,ghost.moveUp());
 
-     //   int rand_int1 = rand.nextInt(4);
+        //int rand_int1 = rand.nextInt(4);
 
         for (Ghost ghost : arena.getGhosts()){
 
@@ -187,6 +184,7 @@ public class Game {
 
     }
 
+    // Processes the key pressed
     public synchronized boolean processKey(KeyStroke key){
         if(key==null){
             return false;
@@ -209,10 +207,12 @@ public class Game {
         return res;
     }
 
+    // Resets the level
     public void resetLevel(){
         arena.createWalls();
     }
 
+    // Resets the game once Pac has collided with a ghost
     public void death() throws IOException {
         int currentLives = arena.getLives()-1;
 
@@ -220,7 +220,7 @@ public class Game {
         if (currentLives > 0){
             arena.getPac().setPosition(new Position(19, 3));
             arena.resetGhosts();
-          //  arena.createWalls();
+            //arena.createWalls();
         }
         else{
             highScores();
@@ -231,11 +231,13 @@ public class Game {
 
     }
 
+    // Ghost's death
     public void ghostDeath(Ghost ghost){
         arena.someoneScored();
         ghost.setInitialPosition();
     }
 
+    // Soundtrack for the game
     public void sound() {
         try {
             Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
@@ -251,6 +253,7 @@ public class Game {
         }
     }
 
+    // Prints the high score
     public void printHighScores(){
 
         highScore.getHighScores().entrySet().forEach(entry->{
@@ -265,8 +268,8 @@ public class Game {
         });
     }
 
+    // High Scores
     public void highScores(){
-
 
         String username = System.getProperty("user.name");
         int score = arena.getScore();
@@ -275,11 +278,13 @@ public class Game {
         highScore.insertIntoHashMap(username,score,date);
         printHighScores();
         saveDataInFile();
-
-
     }
 
-    public synchronized void saveDataInFile(){ //Baseado em "https://www.tutorialspoint.com/java/java_serialization.htm"
+    /*
+    * Saves the data on the designated files
+    * Based on "https://www.tutorialspoint.com/java/java_serialization.htm"
+    */
+    public synchronized void saveDataInFile(){
         try {
             String filename = "Data.ser";
 
@@ -300,7 +305,11 @@ public class Game {
         }
     }
 
-    public synchronized void retrieveDataFromFile(){ //Baseado em "https://www.tutorialspoint.com/java/java_serialization.htm"
+    /*
+    * Retrieves the data from the file
+    * Based on "https://www.tutorialspoint.com/java/java_serialization.htm"
+    */
+    public synchronized void retrieveDataFromFile(){
         try {
             String filename = "Data.ser";
 
@@ -323,5 +332,4 @@ public class Game {
             c.printStackTrace();
         }
     }
-
 }

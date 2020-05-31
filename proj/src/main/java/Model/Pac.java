@@ -1,19 +1,8 @@
 package Model;
 
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextCharacter;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.BasicTextImage;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.graphics.TextImage;
-import com.googlecode.lanterna.screen.Screen;
-
-import java.io.IOException;
-
 public class Pac {
 
-    //Creates a new Model.Position for Model.Pac
+    //Creates a new position for Pac
     private Position position = new Position();
 
 
@@ -23,25 +12,27 @@ public class Pac {
         this.position.setY(y);
     }
 
-
-    //Returns Model.Position
+    //Returns position
     public Position getPosition(){return position;}
 
+    // Sets Pac position
     public void setPosition(Position position){
         this.position.setY(position.getY());
         this.position.setX(position.getX());
     }
 
+    // Moves up
     public Position moveUp(){
         return new Position(position.getX(), position.getY() - 1);
     }
 
+    // Moves down
     public Position moveDown(){return new Position(position.getX(), position.getY() + 1);}
 
+    // Moves left
     public Position moveLeft(){return new Position(position.getX() -1 , position.getY());}
 
+    // Moves right
     public Position moveRight(){return new Position(position.getX() + 1, position.getY());}
-
-
 }
 

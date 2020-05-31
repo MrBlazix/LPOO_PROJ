@@ -18,66 +18,62 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 
 public class ArenaDrawer {
+
+    // Variable initialization
     private Screen screen;
 
-
+    // Constructor
     public ArenaDrawer(int width, int height) throws IOException {
         Terminal terminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(100, 100)).createTerminal();
         screen = new TerminalScreen(terminal);
 
-
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
-
-
     }
 
+    // Main Menu
     public boolean Menu(Model.Arena arena) throws IOException {
         boolean advance=false;
         screen.clear();
 
         TextGraphics graphics = screen.newTextGraphics();
 
+        screen.clear();
 
-            screen.clear();
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#111111"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(arena.getWidth() , arena.getHeight() ), ' ');
+        graphics.setForegroundColor(TextColor.ANSI.WHITE);
+        graphics.putString(1,1, "Welcome to Pac-Man");
+        graphics.putString(1,2, " ");
+        graphics.putString(1,3, "F1 - Play");
+        graphics.putString(1,4, "F2 - Instructions");
+        graphics.putString(1,5, "F3 - Exit");
 
-            graphics.setBackgroundColor(TextColor.Factory.fromString("#111111"));
-            graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(arena.getWidth() , arena.getHeight() ), ' ');
-            graphics.setForegroundColor(TextColor.ANSI.WHITE);
-            graphics.putString(1,1, "Welcome to Pac-Man");
-            graphics.putString(1,2, " ");
-            graphics.putString(1,3, "F1 - Play");
-            graphics.putString(1,4, "F2 - Instructions");
-            graphics.putString(1,5, "F3 - Exit");
         screen.refresh();
 
-
-
-    while(!advance){
-        KeyStroke key = getCommandNotPoll();
-        switch (key.getKeyType()){
-            case F1:
-                advance = true;
-                break;
-            case F2:
-                advance = true;
-                instructions(graphics);
-                break;
-            case F3:
-                closeScreen();
-                return true;
-            default:
-                graphics.putString(1,8, "Press a valid key");
-                screen.refresh();
-
+        while(!advance){
+            KeyStroke key = getCommandNotPoll();
+                switch (key.getKeyType()){
+                    case F1:
+                        advance = true;
+                        break;
+                    case F2:
+                        advance = true;
+                        instructions(graphics);
+                        break;
+                    case F3:
+                        closeScreen();
+                        return true;
+                    default:
+                        graphics.putString(1,8, "Press a valid key");
+                        screen.refresh();
         }
     }
-
-
-    return false;
+        return false;
     }
 
+    // Draws the arena
     public void draw(Model.Arena arena) throws IOException{
         screen.clear();
 
@@ -128,12 +124,10 @@ public class ArenaDrawer {
             graphics.enableModifiers(SGR.BOLD);
             graphics.putString(new TerminalPosition(ghost.getPosition().getX(), ghost.getPosition().getY()), "B");
         }
-
-
-
         screen.refresh();
     }
 
+    // Polling of the keyboard input
     public KeyStroke getCommand() throws IOException {
         while (true) {
             KeyStroke key = screen.pollInput();
@@ -141,15 +135,18 @@ public class ArenaDrawer {
         }
     }
 
+    // Reads the keyboard input
     public KeyStroke getCommandNotPoll() throws IOException {
             KeyStroke key = screen.readInput();
             return key;
     }
 
+    // Closes the screen
     public void closeScreen() throws IOException {
         screen.close();
     }
 
+    // Instructions menu
     public void instructions(TextGraphics graphics) throws IOException {
         screen.clear();
         graphics.putString(1,1, "Arrow Up To Move Up");
@@ -167,9 +164,9 @@ public class ArenaDrawer {
                 return;
             }
         }
-
     }
 
+    // Converts a specified color name to his hexadecimal
     public String convertToHex(String color){
         String return_color;
         switch (color){
@@ -192,8 +189,6 @@ public class ArenaDrawer {
             default: return_color = "#000000";
             break;
         }
-
         return return_color;
     }
-
 }

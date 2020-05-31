@@ -15,6 +15,7 @@ import java.util.List;
 
 public class Arena {
 
+    // Variable initialization
     private int width;
     private int height;
     public boolean superTime;
@@ -27,8 +28,8 @@ public class Arena {
     private List<Position> ghostArea;
     private int score;
     private int level;
-    JLabel scoreLabel;
 
+    // Creates the arena
     public Arena(int width, int height, Pac pac){
         this.width = width;
         this.height = height;
@@ -39,28 +40,34 @@ public class Arena {
         this.level = 1;
     }
 
+    // Returns current lives
     public int getLives() {
         return lives;
     }
 
+    // Sets current lives
     public void setLives(int lives) {
         this.lives = lives;
     }
 
+    // Increases level
     public void increaseLevel(){
         this.level++;
     }
 
+    // Returns current level
     public int getLevel() {
         return level;
     }
 
+    // Resets the ghosts
     public void resetGhosts(){
         for(Ghost ghost : ghosts){
             ghost.setInitialPosition();
         }
     }
 
+    // Creates the walls and dots
     public void createWalls() {
 
         List<Ghost> ghosts = new ArrayList<>();
@@ -71,8 +78,8 @@ public class Arena {
 
         ghosts.add(new Ghost(19,11,"Red"));
         ghosts.add(new Ghost(21,11,"Blue"));
-     //   ghosts.add(new Ghost(20,11,"#FFFF99"));
-     //   ghosts.add(new Ghost(20,10,"#FFC0CB"));
+        //ghosts.add(new Ghost(20,11,"#FFFF99"));
+        //ghosts.add(new Ghost(20,10,"#FFC0CB"));
 
         try (FileReader f = new FileReader("map.txt")) {
             StringBuffer sb = new StringBuffer();
@@ -122,6 +129,7 @@ public class Arena {
         this.ghostArea = ghostArea;
     }
 
+    // Checks if the dot is a superpoint
     public boolean isSuperPoint(Position position){
 
         Dot temp_dot = new Dot(position.getX(),position.getY(),"Super");
@@ -133,6 +141,7 @@ public class Arena {
             return false;
     }
 
+    // Moves Pac
     public boolean movePac(Position position){
         if(checkMove(position,1)){
             pac.setPosition(position);
@@ -141,6 +150,7 @@ public class Arena {
         return false;
     }
 
+    // Moves ghosts
     public boolean moveGhost(Ghost ghost, Position position){
         if(checkMove(position,0)){
             ghost.setPosition(position);
@@ -149,10 +159,12 @@ public class Arena {
         return false;
     }
 
+    // Returns ghosts
     public List<Ghost> getGhosts() {
         return ghosts;
     }
 
+    // Checks if Pac has collided with some ghost
     public boolean detectDeath(){
         for(Ghost ghost : ghosts){
             if(ghost.getPosition().equals(this.getPac().getPosition())){
@@ -162,6 +174,7 @@ public class Arena {
         return false;
     }
 
+    // Checks the move to be made
     public boolean checkMove(Position position, int type) {
 
         if (position.getX() < 0) return false;
@@ -207,6 +220,7 @@ public class Arena {
         return false;
     }
 
+    // Tests the current path
     public boolean testPath(Position position){
 
         if(this.walls.contains(new Wall(position.getX()+1,position.getY())) || this.walls.contains(new Wall(position.getX()-1,position.getY()))){
@@ -215,6 +229,7 @@ public class Arena {
         return true;
     }
 
+    // Checks if it's a ghost
     public boolean checkIfGhost(Position position){
 
         for(Ghost ghost : ghosts){
@@ -225,36 +240,43 @@ public class Arena {
         return false;
     }
 
-
+    // Deletes a dot
     private void retrieveDots(int i){
         dots.remove(i);
     }
 
+    // Increments score
     public void someoneScored()
     {
         score++;
     }
 
+    // Returns height
     public int getHeight() {
         return height;
     }
 
+    // Returns score
     public int getScore() {
         return score;
     }
 
+    // Returns width
     public int getWidth() {
         return width;
     }
 
+    // Returns Pac
     public Pac getPac() {
         return pac;
     }
 
+    // Returns walls
     public List<Wall> getWalls() {
         return walls;
     }
 
+    // Returns dots
     public List<Dot> getDots() {
         return dots;
     }

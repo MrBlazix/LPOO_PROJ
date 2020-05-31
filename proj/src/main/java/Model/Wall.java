@@ -1,9 +1,5 @@
 package Model;
 
-import com.googlecode.lanterna.*;
-import com.googlecode.lanterna.graphics.TextGraphics;
-
-import java.io.IOException;
 import java.util.Objects;
 
 public class Wall {
@@ -15,9 +11,11 @@ public class Wall {
         this.position.setY(y);
     }
 
+    // Returns wall's position
     public Position getPosition(){return position;}
 
 
+    // Overrides the equals method to check if two walls are the same
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -26,6 +24,7 @@ public class Wall {
         return position.equals(wall.position);
     }
 
+    // Overrides the hashCode method to return the has code of the wall's position
     @Override
     public int hashCode() {
         return Objects.hash(position);
