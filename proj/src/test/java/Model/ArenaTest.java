@@ -69,11 +69,10 @@ public class ArenaTest {
 
     @Test
     public void checkMove() {
-        Position temp = arena.getPac().getPosition();
-        arena.checkMove(temp, 1);
-        Position temp2 = arena.getPac().getPosition();
-        arena.checkMove(temp2, 0);
-        Assert.assertNotEquals(temp, temp2);
+        Position temp = new Position(arena.getPac().getPosition().getX(),arena.getPac().getPosition().getY()-1);
+        boolean temp2 = arena.checkMove(temp, 1);
+
+        Assert.assertEquals(false, temp2);
     }
 
     @Test
