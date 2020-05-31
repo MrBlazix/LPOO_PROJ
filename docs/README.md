@@ -107,7 +107,7 @@ Esta implementação permitiu-nos registar os seguintes benefícios:
 ## Testing
 Implementádos Unit Tests a nível individual das funções.
 Resultados:
-![Designed Classes](/docs/images/lpoo_tests.png)
+![Designed Classes](/docs/images/lpoo_tests.PNG)
 
 
 ## Self Evaluation
