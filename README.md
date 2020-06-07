@@ -1,4 +1,3 @@
-# lpoo-2020-g34
 # Projeto desenvolvido para a Unidade Curricular de LPOO 19/20
 
 Pequeno jogo do Pac-Man desenvolvido no âmbito da Unidade Curricular de Laboratório de Programação Orientada aos Objetos.
