@@ -76,11 +76,6 @@ public class ArenaTest {
     }
 
     @Test
-    public void testPath() {
-
-    }
-
-    @Test
     public void checkIfGhost(){
         boolean temp = arena.checkIfGhost(arena.getGhosts().get(0).getPosition());
         boolean temp2 = arena.checkIfGhost(arena.getGhosts().get(1).getPosition());
