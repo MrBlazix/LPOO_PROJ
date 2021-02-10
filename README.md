@@ -6,7 +6,7 @@ Pequeno jogo do Pac-Man desenvolvido no âmbito da Unidade Curricular de Laborat
 
 <table style="width:50%;">
   <tr>
-    <th><a href="https://github.com/MrBlazix"><b>Pedro Pacheco</b></a></th>
+    <th><a href="https://github.com/p-paachecoo"><b>Pedro Pacheco</b></a></th>
     <th><a href="https://github.com/lmarques03"><b>Luís Marques</b></a></th>
   </tr>
 </table>
